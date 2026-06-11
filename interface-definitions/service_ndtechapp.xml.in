@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<interfaceDefinition>
+  <node name="service">
+    <children>
+        <node name="ndtechapp"
+                        owner="${vyos_conf_scripts_dir}/ndtechapp.py">
+
+                <properties>
+                        <help>NDTech wireless application service</help>
+                        <priority>900</priority>
+                </properties>
+
+                <children>
+
+                  <leafNode name="interface">
+                        <properties>
+                          <help>Wireless interface name</help>
+                          <constraint>
+                                <regex>^[a-zA-Z0-9_-]+$</regex>
+                          </constraint>
+                        </properties>
+                        <defaultValue>wlan0</defaultValue>
+                  </leafNode>
+
+                  <leafNode name="driver">
+                        <properties>
+                          <help>Wireless driver</help>
+
+                          <valueHelp>
+                                <format>nl80211</format>
+                                <description>Linux nl80211 driver</description>
+                          </valueHelp>
+
+                        </properties>
+                        <defaultValue>nl80211</defaultValue>
+                  </leafNode>
+
+                  <leafNode name="ssid">
+                        <properties>
+                          <help>Wireless SSID</help>
+                        </properties>
+                  </leafNode>
+
+                  <leafNode name="country-code">
+                        <properties>
+                          <help>Country code</help>
+
+                          <constraint>
+                                <regex>^[A-Z]{2}$</regex>
+                          </constraint>
+
+                        </properties>
+                        <defaultValue>VN</defaultValue>
+                  </leafNode>
+
+                  <leafNode name="hw-mode">
+                        <properties>
+                          <help>Wireless hardware mode</help>
+
+                          <constraint>
+                                <regex>^(a|b|g)$</regex>
+                          </constraint>
+
+                        </properties>
+                        <defaultValue>g</defaultValue>
+                  </leafNode>
+
+                  <leafNode name="channel">
+                        <properties>
+                          <help>Wireless channel</help>
+
+                          <constraint>
+                                <validator name="numeric"
+                                                   argument="--range 1-165"/>
+                          </constraint>
+
+                        </properties>
+
+                        <defaultValue>6</defaultValue>
+                  </leafNode>
+
+                  <node name="security">
+
+                        <properties>
+                          <help>Wireless security settings</help>
+                        </properties>
+
+                        <children>
+
+                          <leafNode name="wpa">
+                                <properties>
+                                  <help>WPA version</help>
+
+                                  <constraint>
+                                        <validator name="numeric"
+                                                           argument="--range 1-3"/>
+                                  </constraint>
+
+                                </properties>
+
+                                <defaultValue>2</defaultValue>
+                          </leafNode>
+
+                          <leafNode name="passphrase">
+                                <properties>
+                                  <help>Wireless passphrase</help>
+
+                                  <constraint>
+                                        <regex>^.{8,63}$</regex>
+                                  </constraint>
+
+                                </properties>
+                          </leafNode>
+
+                          <leafNode name="key-mgmt">
+                                <properties>
+                                  <help>Key management</help>
+
+                                  <constraint>
+                                        <regex>^(WPA-PSK|WPA-EAP|SAE)$</regex>
+                                  </constraint>
+
+                                </properties>
+
+                                <defaultValue>WPA-PSK</defaultValue>
+                          </leafNode>
+
+                          <leafNode name="rsn-pairwise">
+                                <properties>
+                                  <help>Encryption cipher</help>
+
+                                  <constraint>
+                                        <regex>^(CCMP|TKIP)$</regex>
+                                  </constraint>
+
+                                </properties>
+
+                                <defaultValue>CCMP</defaultValue>
+                          </leafNode>
+
+                        </children>
+
+                  </node>
+
+                </children>
+
+          </node>
+
+        </children>
+  </node>
+</interfaceDefinition>
+
